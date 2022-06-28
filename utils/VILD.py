@@ -27,13 +27,18 @@ class VILD:
     def __init__(self):
         session = tf.Session(graph=tf.Graph())
         
+        #VILD model PATH
         saved_model_dir = os.path.join(ROOT,'image_path_v2')
         print(saved_model_dir)
 
         _ = tf.saved_model.loader.load(session, ['serve'], saved_model_dir)
         self.session = session
+        
+        ###########################################
+        #You can change defination of objects here#
         robocup_class = ["A red apple", "orange", "lime", "banana", "onion", "jelly", "cereal box", "potato chip", "instant noodle", "ketchup", "chocolate", "water bottle", "A softdrink bottle", "milk carton", "juice", "coffee cup", "tea", "beer", "table", "chair", "sofa", "fridge", "cabinet"]
-
+        ###########################################
+        
         category_name_string = ';'.join(robocup_class)
         category_names = [x.strip() for x in category_name_string.split(';')]
         category_names = ['background'] + category_names

@@ -51,9 +51,15 @@ def main():
     
     # for loop dir
     for folder in os.listdir(os.path.join(ROOT,'sampling')):
+        
+        #class image PATH
         for image_path in tqdm(sorted(iglob('{}\\sampling\\{}\\images\\*.jpg'.format(ROOT,folder)))):
+            
+            #Detect
             res_label, res_bbox, height, width = vild_model._detect(image_path)
             print('res_label =',len(res_label))
+            
+            #Make .xml label files
             inference2xml('{}\\sampling\\{}\\labels'.format(ROOT,folder),image_path,res_label, res_bbox, height, width)
 
 if __name__ == '__main__':
