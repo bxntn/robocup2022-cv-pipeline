@@ -1,5 +1,4 @@
 easydict
-numpy
 matplotlib
 opencv-python
 scipy
