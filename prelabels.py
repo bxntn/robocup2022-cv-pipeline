@@ -54,6 +54,7 @@ def main():
     
     ######## Defination_of_detect_class ########
     robocup_classes = {'potatochip':'A bag of potatoship','milk':'A box of milk','cereal':'A box of cereal'}
+    # robocup_classes = {'potatochip':'A bag of potatoship','milk':'A box of milk','cereal':'A box of cereal','fork':'a white plastic fork','tea':'a bottle of greentea'}
     ############################################
     
     # for loop dir
@@ -61,6 +62,7 @@ def main():
         
         if folder != 'all' :
             class_name = [robocup_classes[folder.lower()]]
+            print('\n',"prelabel",folder,'\n')
         else:
             continue
             
