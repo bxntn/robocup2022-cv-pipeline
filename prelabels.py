@@ -62,7 +62,7 @@ def main():
         if folder != 'all' :
             class_name = [robocup_classes[folder.lower()]]
         else:
-            class_name = robocup_classes
+            continue
             
         # Building text embedding per class_folder    
         category_name_string = ';'.join(class_name)
