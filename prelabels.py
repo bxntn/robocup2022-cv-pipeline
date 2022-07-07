@@ -50,21 +50,21 @@ numbered_category_indices = {cat['id']: cat for cat in numbered_categories}
 
 def main():
     ROOT = os.getcwd()
-    MODE = 0 # 0 : For prelabel one class per frame , 1 : For prelabel multi-classes per frame
     vild_model = VILD()
     
     ######## Defination_of_detect_class ########
-    robocup_classes = {'Potatochip':'A bag of potatoship','Milk':'A box of milk','Cereal':'A box of cereal','Fork':'A white plastic fork'}
+    robocup_classes = {'potatochip':'A bag of potatoship','milk':'A box of milk','cereal':'A box of cereal'}
     ############################################
     
     # for loop dir
     for folder in os.listdir(os.path.join(ROOT,'sampling')):
         
-        if MODE == 0:
-            class_name = [robocup_classes[folder.capitalize()]]
-        elif MODE == 1:
+        if folder != 'all' :
+            class_name = [robocup_classes[folder.lower()]]
+        else:
             class_name = robocup_classes
             
+        # Building text embedding per class_folder    
         category_name_string = ';'.join(class_name)
         category_names = [x.strip() for x in category_name_string.split(';')]
         category_names = ['background'] + category_names
