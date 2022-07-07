@@ -1,5 +1,3 @@
-from easydict import EasyDict
-
 import numpy as np
 
 from scipy.special import softmax
@@ -12,14 +10,6 @@ import os
 from .text_emb_generate import build_text_embedding
 from .nms import nms
 
-FLAGS = {
-    'prompt_engineering': True,
-    'this_is': True,
-    
-    'temperature': 100.0,
-    'use_softmax': False,
-}
-FLAGS = EasyDict(FLAGS)
 
 ROOT = os.getcwd()
 
@@ -34,18 +24,8 @@ class VILD:
         _ = tf.saved_model.loader.load(session, ['serve'], saved_model_dir)
         self.session = session
         
-        ###########################################
-        #You can change defination of objects here#
-        robocup_class = ["A red apple", "orange", "lime", "banana", "onion", "jelly", "cereal box", "potato chip", "instant noodle", "ketchup", "chocolate", "water bottle", "A softdrink bottle", "milk carton", "juice", "coffee cup", "tea", "beer", "table", "chair", "sofa", "fridge", "cabinet"]
-        ###########################################
-        
-        category_name_string = ';'.join(robocup_class)
-        category_names = [x.strip() for x in category_name_string.split(';')]
-        category_names = ['background'] + category_names
-        categories = [{'name': item, 'id': idx+1,} for idx, item in enumerate(category_names)]
-        self.category_names = category_names
-        robocup_embbed = build_text_embedding(categories,FLAGS=FLAGS)
-        self.text_features = robocup_embbed
+        self.category_names = []
+        self.text_features = []
         
         max_boxes_to_draw = 10
         nms_threshold = 0.8
@@ -54,11 +34,9 @@ class VILD:
         params = max_boxes_to_draw, nms_threshold, min_rpn_score_thresh, min_box_area
         self.params = params
 
-    def _detect(self,image_path):
+    def _detect(self,image_path,FLAGS):
         max_boxes_to_draw, nms_threshold, min_rpn_score_thresh, min_box_area = self.params
-
-    
-
+        
         roi_boxes, roi_scores, detection_boxes, scores_unused, box_outputs, detection_masks, visual_features, image_info = self.session.run(
             ['RoiBoxes:0', 'RoiScores:0', '2ndStageBoxes:0', '2ndStageScoresUnused:0', 'BoxOutputs:0', 'MaskOutputs:0', 'VisualFeatOutputs:0', 'ImageInfo:0'],
             feed_dict={'Placeholder:0': [image_path,]})
