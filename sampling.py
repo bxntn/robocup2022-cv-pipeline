@@ -14,7 +14,7 @@ def main():
         if video_file.endswith(video_format):
             
             #trim video format
-            class_name = video_file[:-4].capitalize()
+            class_name = video_file[:-4].lower()
             folder_path = os.path.join(OUTDIR,class_name)
             video_path = os.path.join(os.path.join(ROOT,'video'),video_file)
             
@@ -29,7 +29,7 @@ def main():
             print("Directory '%s' created" %class_name)
             
             #Sampling images from video with ffmpeg
-            os.system('ffmpeg -i {} -vf  fps=30 {}/img%05d.jpg'.format(video_path , os.path.join(folder_path,'images')))
+            os.system('ffmpeg -i {} -vf  fps=10 {}/img%05d.jpg'.format(video_path , os.path.join(folder_path,'images')))
             print(" '%s' has been sampling" %class_name)
         
     #Create class_name.txt file 
