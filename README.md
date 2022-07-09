@@ -25,3 +25,4 @@ $ pip install tensorflow
 * Check TensorFlow version is compatible with your CUDA and cuDNN version: https://www.tensorflow.org/install/source_windows#gpu
 * Install previous versions of PyTorch: https://pytorch.org/get-started/previous-versions/
 * Check your CUDA version: https://stackoverflow.com/a/9730706
+* Check your cuDNN version: https://stackoverflow.com/a/46576281
