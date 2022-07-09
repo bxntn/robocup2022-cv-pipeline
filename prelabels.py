@@ -62,9 +62,10 @@ def main():
         
         if folder != 'all' :
             class_name = [robocup_classes[folder.lower()]]
-            print('\n',"prelabel",folder,'\n')
         else:
-            continue
+            # continue
+            class_name = robocup_classes
+        print('\n',"prelabel",folder,'\n')
             
         # Building text embedding per class_folder    
         category_name_string = ';'.join(class_name)
@@ -79,7 +80,7 @@ def main():
         for image_path in tqdm(sorted(iglob('{}\\sampling\\{}\\images\\*.jpg'.format(ROOT,folder)))):
             #Detect
             res_label, res_bbox, height, width = vild_model._detect(image_path,FLAGS) 
-            print('res_label =',len(res_label))
+            print('\n','res_label =',len(res_label))
             
             #Make .xml label files
             inference2xml('{}\\sampling\\{}\\labels'.format(ROOT,folder),image_path,res_label, res_bbox, height, width)
