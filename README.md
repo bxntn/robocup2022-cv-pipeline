@@ -3,7 +3,7 @@
 ## Environment setting
 * create environments
 ```
-$ conda create --name vild
+$ conda create -n vild python
 ```
 * Next, install PyTorch 1.7.1 (or later) and torchvision, as well as small additional dependencies, and then install this repo as a Python package. On a CUDA GPU machine, the following will do the trick:
 ``` bash
